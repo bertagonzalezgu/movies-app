@@ -14,6 +14,11 @@ export default function NavBar(){
     const location = useLocation()
 
     function isActive(url: string){
+        if (url === '/profile') {
+            return location.pathname === '/profile' || 
+                location.pathname === '/login' || 
+                location.pathname === '/register';
+        }
     return location.pathname === url
     }
 
