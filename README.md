@@ -4,7 +4,7 @@ A single-page application for managing movie preferences: explore real-time data
 
 ## Demo
 
-**Live demo:** [https://movies-bay-psi.vercel.app/](https://movies-bay-psi.vercel.app/)
+**Live demo:** [https://bertagonzalezgu.github.io/movies-app/](https://bertagonzalezgu.github.io/movies-app/)
 
 ## Features
 
