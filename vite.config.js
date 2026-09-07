@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(),
     tailwindcss(),
   ],
-  base: '/PROJECT-3---MOVIES/',
+  base: '/movies-app/',
   test: {
     environment: 'jsdom',
     globals: true,
