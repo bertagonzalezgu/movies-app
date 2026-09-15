@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import type { Movie } from '../features/movies/types/movies.types'
+import { getImageUrl } from "../features/movies/services/tmdbAPI"
+import placeholderPoster from '/src/assets/img/placeholder-hero-movies.png'
 
 interface HeroProps {
   movies: Movie[]
@@ -18,12 +20,12 @@ export default function Hero({ movies }: HeroProps) {
 
   if (!randomMovie) return null
 
-  const backdropUrl = `https://image.tmdb.org/t/p/original${randomMovie.poster_path}`
+  const backdropUrl = getImageUrl(randomMovie.poster_path, "original")
 
   return (
     <section className="relative w-full h-[60vh] min-h-100 rounded-3xl overflow-hidden mb-12 border border-white/10 shadow-2xl">
       <img
-        src={backdropUrl}
+        src={backdropUrl ?? placeholderPoster}
         alt={randomMovie.title}
         className="absolute inset-0 w-full h-full object-cover object-center"
       />

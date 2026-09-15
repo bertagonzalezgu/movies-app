@@ -12,14 +12,18 @@ import { Link, useLocation } from 'react-router-dom'
 export default function NavBar(){
 
     const location = useLocation()
+    const cameFromFavorites = (location.state as { from?: string } | null)?.from === '/favorites'
 
     function isActive(url: string){
-        if (url === '/profile') {
-            return location.pathname === '/profile' || 
-                location.pathname === '/login' || 
-                location.pathname === '/register';
-        }
-    return location.pathname === url
+      if (url === '/favorites') {
+        return location.pathname === '/favorites' || cameFromFavorites
+      }
+      return location.pathname === url
+    }
+
+    function isProfileActive(){
+      if (cameFromFavorites) return false
+      return ['/profile', '/login', '/register'].includes(location.pathname)
     }
 
     return (
@@ -52,8 +56,8 @@ export default function NavBar(){
             </Link>
                           
 
-            <Link to='/profile' aria-label="Perfil" aria-current={isActive('/profile') ? 'page' : undefined}>
-                {isActive('/profile') ? (
+            <Link to='/profile' aria-label="Perfil" aria-current={isProfileActive() ? 'page' : undefined}>
+                {isProfileActive() ? (
                     <img src={userFilled} alt="Icono usuario relleno" className="w-6 h-6" />
                 ) : (
                     <img src={userOutlined} alt="Icono usuario trazado" className="w-6 h-6" />
@@ -100,8 +104,8 @@ export default function NavBar(){
             </Link>
                           
 
-            <Link to='/profile' aria-label="Perfil" aria-current={isActive('/profile') ? 'page' : undefined}>
-                {isActive('/profile') ? (
+            <Link to='/profile' aria-label="Perfil" aria-current={isProfileActive() ? 'page' : undefined}>
+                {isProfileActive() ? (
                     <img src={userFilled} alt="Icono usuario relleno" className="w-6 h-6" />
                 ) : (
                     <img src={userOutlined} alt="Icono usuario trazado" className="w-6 h-6" />

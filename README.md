@@ -24,7 +24,7 @@ A single-page application for managing movie preferences: explore real-time data
 |---|---|
 | Framework | React + TypeScript + Vite |
 | Styling | Tailwind CSS |
-| Routing | React Router DOM v6 |
+| Routing | React Router DOM v7 |
 | Movie data | [TMDB API v3](https://developer.themoviedb.org/reference/intro/getting-started) |
 | Authentication | Firebase Authentication (email/password + Google) |
 | Database | Cloud Firestore |
@@ -74,7 +74,7 @@ src/
 ### 1. Clone and install dependencies
 
 ```bash
-git clone https://github.com/bertagonzalezgu/PROJECT-3---MOVIES.git
+git clone https://github.com/bertagonzalezgu/movies-app.git
 cd project-movies-app
 npm install
 ```
@@ -111,8 +111,10 @@ npm run test
 ```
 
 Includes:
-- Gherkin scenarios (search, favorites, rating) with React Testing Library.
-- Unit tests for the `tmdbAPI` and `favoritesService` services.
+- Includes:
+- Behavior-driven test scenarios (search, favorites, rating) written
+  as Given/When/Then comments within Vitest + React Testing Library
+  tests — not full Gherkin/Cucumber syntax with .feature files.
 
 ### 5. Production build
 
@@ -148,6 +150,29 @@ npm run build
   "rating": 8
 }
 ```
+
+## Firestore security rules
+
+Access to the `favorites` collection is restricted so that a
+user can only read, create, update or delete their own favorite
+documents:
+
+\`\`\`
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /favorites/{favoriteId} {
+      allow read, write: if request.auth != null
+                          && request.auth.uid == resource.data.userId;
+
+      allow create: if request.auth != null
+                    && request.auth.uid == request.resource.data.userId;
+    }
+  }
+}
+\`\`\`
 
 ## Accessibility
 

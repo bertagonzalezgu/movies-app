@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react"
 import { useAuth } from "../../auth/context/useAuth"
 import { getUserFavorites, removeFavorite } from "../services/favoritesService"
-import type { FavoriteMovie } from "../../movies/types/favourites.types"
+import type { FavoriteMovie } from "../../movies/types/favorites.types"
 import { Link } from "react-router-dom"
 import placeholderPoster from '/src/assets/img/placeholder-poster-movies.png'
-
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+import { getImageUrl } from "../../movies/services/tmdbAPI"
 
 export default function FavoritesPage(){
   const { user } = useAuth()
@@ -15,19 +14,18 @@ export default function FavoritesPage(){
   const [deleteId, setDeleteId] = useState<number | null>(null)
 
   useEffect(() => {
-    async function loadFavorites(){
-      if (!user) {
-        setLoading(false)
-        return
-      }
-
-      const data = await getUserFavorites(user.uid)
-      setFavorites(data as FavoriteMovie[])
+  async function loadFavorites(){
+    if (!user) {
       setLoading(false)
+      return
     }
 
-    loadFavorites()
-  }, [user])
+    const data = await getUserFavorites(user.uid)
+    setFavorites(data as FavoriteMovie[])
+    setLoading(false)
+  }
+
+  loadFavorites()}, [user])
 
   async function handleRemove(movieId: number){
     if (!user) return
@@ -58,19 +56,6 @@ export default function FavoritesPage(){
     )
   }
 
-  if(!user){
-    return (
-      <main className="min-h-screen bg-[#171B36] flex flex-col items-center justify-center text-white p-4">
-        <div role="alert" className="p-4 bg-[#B20710]/20 border border-[#B20710] text-red-200 rounded-lg text-center max-w-md mx-auto">
-          <p>Inicia sesión para ver tus favoritos</p>
-        </div>
-        <Link to="/login" className="mt-6 inline-block px-5 py-2.5 bg-[#000000]/40 hover:bg-[#000000]/60 text-white font-medium rounded-xl transition-colors border border-white/5">
-          Iniciar sesión
-        </Link>
-      </main>
-    )
-  }
-
   return (
     <main className="min-h-screen bg-[#171B36] text-white px-4 py-18 md:py-10 md:pr-12 md:pl-32 transition-all">
       <header className="mb-6 border-b border-white/10 pb-4">
@@ -88,9 +73,7 @@ export default function FavoritesPage(){
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
           {favorites.map((fav) => {
-            const posterUrl = fav.moviePoster
-              ? `${IMAGE_BASE_URL}${fav.moviePoster}`
-              : placeholderPoster
+            const posterUrl = getImageUrl(fav.moviePoster, "w500") ?? placeholderPoster
 
             return (
               <article

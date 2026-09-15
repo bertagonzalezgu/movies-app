@@ -8,7 +8,7 @@ import DirectorDetailPage from '../features/movies/pages/DirectorDetailPage'
 import ProfilePage from '../features/auth/pages/ProfilePage'
 import RegisterPage from '../features/auth/pages/RegisterPage'
 import LoginPage from '../features/auth/pages/LoginPage'
-import ProtectedRoute from '../features/auth/context/ProtectedRoutes'
+import ProtectedRoute from '../features/auth/context/ProtectedRoute'
 import FavoritesPage from '../features/favorites/pages/FavoritesPage.tsx'
 
 
@@ -19,7 +19,9 @@ export default function App(){
             <Route element={<Layout/>}>
                 <Route path='/' element={<HomePage/>}/>
                 <Route path='/explore' element={<ExplorePage/>}/>
-                <Route path='/favorites' element={<FavoritesPage/>} />
+                <Route path='/favorites' element={<ProtectedRoute>
+                                                    <FavoritesPage/>
+                                                </ProtectedRoute>}/>
                 <Route path='/profile' element={<ProtectedRoute>
                                                     <ProfilePage/>
                                                 </ProtectedRoute> }/>

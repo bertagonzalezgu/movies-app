@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { signUp } from "../services/authService"
 import { FirebaseError } from "firebase/app"
 import type { FormEvent } from "react"
@@ -7,6 +8,7 @@ export default function RegisterForm(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState<string | null>(null)
+    const navigate = useNavigate()
 
     async function handleSubmit(e: FormEvent){
         e.preventDefault()
@@ -14,6 +16,7 @@ export default function RegisterForm(){
 
         try{
           await signUp(email, password)
+          navigate("/profile", { state: { justRegistered: true } })
         } catch(err){
           if(err instanceof FirebaseError && err.code === "auth/email-already-in-use") {
             setError("Este email ya está registrado")

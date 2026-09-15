@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import type { CastMember } from '../types/credits.types'
 import placeholderPoster from '/src/assets/img/placeholder-poster-movies.png'
 import { Link } from 'react-router-dom'
+import { getImageUrl } from '../services/tmdbAPI'
 
 interface CastListProps {
   cast: CastMember[]
@@ -39,9 +40,7 @@ export default function CastList({ cast }: CastListProps) {
           className="flex gap-4 overflow-x-auto pb-2 scroll-smooth scrollbar-none"
         >
           {mainCast.map((person) => {
-            const photoUrl = person.profile_path
-              ? `https://image.tmdb.org/t/p/w185${person.profile_path}`
-              : placeholderPoster
+            const photoUrl = getImageUrl(person.profile_path, "w185") ?? placeholderPoster
 
             return (
               <Link key={person.id} to={`/actor/${person.id}`}>

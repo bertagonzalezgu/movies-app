@@ -1,4 +1,4 @@
-import type { FavoriteData } from "../../movies/types/favourites.types";
+import type { FavoriteData } from "../../movies/types/favorites.types";
 import { doc, setDoc, deleteDoc, getDoc } from "firebase/firestore"
 import { db } from "../../auth/services/firebaseConfig"
 import { collection, query, where, getDocs } from "firebase/firestore"

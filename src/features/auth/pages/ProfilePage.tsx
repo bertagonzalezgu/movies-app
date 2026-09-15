@@ -1,8 +1,11 @@
+import { useLocation } from "react-router-dom"
 import { useAuth } from "../context/useAuth"
 import { signOut } from "../services/authService"
 
 export default function ProfilePage(){
   const { user } = useAuth()
+  const location = useLocation()
+  const justRegistered = (location.state as { justRegistered?: boolean } | null)?.justRegistered
 
   const handleSignOut = async () => {
     try {
@@ -19,6 +22,12 @@ export default function ProfilePage(){
           Mi <span className="text-[#E50914]">Perfil</span>
         </h1>
       </header>
+
+      {justRegistered && (
+        <div role="status" className="max-w-xl p-3 bg-green-500/10 border border-green-500/30 text-green-300 rounded-lg text-sm text-center mb-4">
+          ¡Cuenta creada correctamente! Bienvenido/a.
+        </div>
+      )}
 
       <div className="max-w-xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
         <div className="flex items-center gap-4 mb-6">

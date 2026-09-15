@@ -1,15 +1,14 @@
 import type { Movie } from '../types/movies.types'
 import placeholderPoster from '/src/assets/img/placeholder-poster-movies.png'
 import { Link } from 'react-router-dom'
+import { getImageUrl } from '../services/tmdbAPI'
 
 interface MovieCardProps {
   movie: Movie
 }
 
 export default function MovieCard({movie}: MovieCardProps){
-  const posterUrl = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
-    : null
+  const posterUrl = getImageUrl(movie.poster_path, "w342")
 
   return (
     <article className="group relative bg-[#000000]/40 rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#E50914]/20 flex flex-col w-full h-full border border-white/5">
