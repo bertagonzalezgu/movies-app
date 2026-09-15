@@ -4,7 +4,7 @@ A single-page application for managing movie preferences: explore real-time data
 
 ## Demo
 
-**Live demo:** [https://movies-bay-psi.vercel.app/](https://movies-bay-psi.vercel.app/)
+**Live demo:** [https://bertagonzalezgu.github.io/movies-app/](https://bertagonzalezgu.github.io/movies-app/)
 
 ## Features
 
@@ -24,7 +24,7 @@ A single-page application for managing movie preferences: explore real-time data
 |---|---|
 | Framework | React + TypeScript + Vite |
 | Styling | Tailwind CSS |
-| Routing | React Router DOM v6 |
+| Routing | React Router DOM v7 |
 | Movie data | [TMDB API v3](https://developer.themoviedb.org/reference/intro/getting-started) |
 | Authentication | Firebase Authentication (email/password + Google) |
 | Database | Cloud Firestore |
@@ -74,7 +74,7 @@ src/
 ### 1. Clone and install dependencies
 
 ```bash
-git clone https://github.com/bertagonzalezgu/PROJECT-3---MOVIES.git
+git clone https://github.com/bertagonzalezgu/movies-app.git
 cd project-movies-app
 npm install
 ```
