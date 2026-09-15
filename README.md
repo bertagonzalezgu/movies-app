@@ -149,6 +149,29 @@ npm run build
 }
 ```
 
+## Firestore security rules
+
+Access to the `favorites` collection is restricted so that a
+user can only read, create, update or delete their own favorite
+documents:
+
+\`\`\`
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /favorites/{favoriteId} {
+      allow read, write: if request.auth != null
+                          && request.auth.uid == resource.data.userId;
+
+      allow create: if request.auth != null
+                    && request.auth.uid == request.resource.data.userId;
+    }
+  }
+}
+\`\`\`
+
 ## Accessibility
 
 The project follows **WCAG 2.1 AA** guidelines:
