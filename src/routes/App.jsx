@@ -8,7 +8,7 @@ import DirectorDetailPage from '../features/movies/pages/DirectorDetailPage'
 import ProfilePage from '../features/auth/pages/ProfilePage'
 import RegisterPage from '../features/auth/pages/RegisterPage'
 import LoginPage from '../features/auth/pages/LoginPage'
-import ProtectedRoute from '../features/auth/context/ProtectedRoutes'
+import ProtectedRoute from '../features/auth/context/ProtectedRoute'
 import FavoritesPage from '../features/favorites/pages/FavoritesPage.tsx'
 
 
