@@ -157,7 +157,7 @@ Access to the `favorites` collection is restricted so that a
 user can only read, create, update or delete their own favorite
 documents:
 
-\`\`\`
+```
 rules_version = '2';
 
 service cloud.firestore {
@@ -172,7 +172,7 @@ service cloud.firestore {
     }
   }
 }
-\`\`\`
+```
 
 ## Accessibility
 
