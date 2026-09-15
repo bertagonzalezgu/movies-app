@@ -4,9 +4,10 @@ import starOutlined from '/src/assets/icons/rating-star-outlined.svg'
 interface RatingStarsProps{
   rating: number | null
   onRate: (rating: number) => void
+  disabled?: boolean
 }
 
-export default function RatingStars({ rating, onRate }: RatingStarsProps){
+export default function RatingStars({ rating, onRate, disabled = false }: RatingStarsProps){
   const stars = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   return (
@@ -24,8 +25,10 @@ export default function RatingStars({ rating, onRate }: RatingStarsProps){
               key={star}
               type="button"
               onClick={() => onRate(star)}
-              className="p-0.5 transition-transform duration-200 hover:scale-125 focus:outline-none cursor-pointer group"
-              aria-label={`Puntuar con ${star} estrella${star > 1 ? 's' : ''}`}>
+              disabled={disabled}
+              aria-label={`Puntuar con ${star} estrella${star > 1 ? 's' : ''}`}
+              className="p-0.5 transition-transform duration-200 hover:scale-125 focus:outline-none cursor-pointer group disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+              title={`Puntuar con ${star} estrella${star > 1 ? 's' : ''}`}>
               <img
                 src={isFilled ? starFilled : starOutlined}
                 alt=""

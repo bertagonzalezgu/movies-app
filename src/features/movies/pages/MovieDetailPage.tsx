@@ -16,7 +16,7 @@ export default function MovieDetailPage(){
   const { user } = useAuth()
 
   const { movieDetails, movieCredits, loading, error, notFound, trailer } = useMovieDetail(id)
-  const { isFav, rating, handleToggleFavorite, handleRate } = useFavorite(user, movieDetails)
+  const { isFav, rating, actionLoading, actionError, handleToggleFavorite, handleRate } = useFavorite(user, movieDetails)
 
   if(loading){
     return (
@@ -78,8 +78,10 @@ export default function MovieDetailPage(){
             {user && (
               <button
                 onClick={handleToggleFavorite}
+                disabled={actionLoading}
                 aria-pressed={isFav}
-                className={`group relative w-full inline-flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 active:scale-95 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#E50914]/40 overflow-hidden backdrop-blur-md ${
+                aria-busy={actionLoading}
+                className={`group relative w-full inline-flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 active:scale-95 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#E50914]/40 overflow-hidden backdrop-blur-md disabled:opacity-50 disabled:cursor-not-allowed ${
                   isFav
                     ? "bg-[#E50914]/15 hover:bg-[#E50914]/25 border border-[#E50914]/40 text-white hover:shadow-lg hover:shadow-[#E50914]/20"
                     : "bg-[#000000]/40 hover:bg-[#000000]/60 border border-white/10 text-gray-300 hover:text-white hover:border-white/20"
@@ -91,13 +93,17 @@ export default function MovieDetailPage(){
                   className="w-5 h-5 object-contain transition-transform duration-300 group-hover:scale-110 group-active:scale-125"
                 />
                 <span className="tracking-wide">
-                  {isFav ? "Quitar de favoritos" : "Añadir a favoritos"}
+                  {actionLoading ? "Guardando..." : isFav ? "Quitar de favoritos" : "Añadir a favoritos"}
                 </span>
               </button>
             )}
 
+            {actionError && (
+              <p role="alert" className="text-xs text-red-300 text-center">{actionError}</p>
+            )}
+
             {user && isFav && (
-              <RatingStars rating={rating} onRate={handleRate} />
+              <RatingStars rating={rating} onRate={handleRate} disabled={actionLoading} />
             )}
 
           </div>
