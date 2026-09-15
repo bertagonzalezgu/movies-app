@@ -15,19 +15,18 @@ export default function FavoritesPage(){
   const [deleteId, setDeleteId] = useState<number | null>(null)
 
   useEffect(() => {
-    async function loadFavorites(){
-      if (!user) {
-        setLoading(false)
-        return
-      }
-
-      const data = await getUserFavorites(user.uid)
-      setFavorites(data as FavoriteMovie[])
+  async function loadFavorites(){
+    if (!user) {
       setLoading(false)
+      return
     }
 
-    loadFavorites()
-  }, [user])
+    const data = await getUserFavorites(user.uid)
+    setFavorites(data as FavoriteMovie[])
+    setLoading(false)
+  }
+
+  loadFavorites()}, [user])
 
   async function handleRemove(movieId: number){
     if (!user) return
@@ -54,19 +53,6 @@ export default function FavoritesPage(){
         <p className="text-lg font-medium animate-pulse text-gray-300">
           Cargando favoritos...
         </p>
-      </main>
-    )
-  }
-
-  if(!user){
-    return (
-      <main className="min-h-screen bg-[#171B36] flex flex-col items-center justify-center text-white p-4">
-        <div role="alert" className="p-4 bg-[#B20710]/20 border border-[#B20710] text-red-200 rounded-lg text-center max-w-md mx-auto">
-          <p>Inicia sesión para ver tus favoritos</p>
-        </div>
-        <Link to="/login" className="mt-6 inline-block px-5 py-2.5 bg-[#000000]/40 hover:bg-[#000000]/60 text-white font-medium rounded-xl transition-colors border border-white/5">
-          Iniciar sesión
-        </Link>
       </main>
     )
   }

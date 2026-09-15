@@ -19,7 +19,9 @@ export default function App(){
             <Route element={<Layout/>}>
                 <Route path='/' element={<HomePage/>}/>
                 <Route path='/explore' element={<ExplorePage/>}/>
-                <Route path='/favorites' element={<FavoritesPage/>} />
+                <Route path='/favorites' element={<ProtectedRoute>
+                                                    <FavoritesPage/>
+                                                </ProtectedRoute>}/>
                 <Route path='/profile' element={<ProtectedRoute>
                                                     <ProfilePage/>
                                                 </ProtectedRoute> }/>

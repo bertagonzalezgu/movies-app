@@ -2,7 +2,7 @@ import { useState } from "react"
 import { signIn } from "../services/authService"
 import { FirebaseError } from "firebase/app"
 import type { FormEvent } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { loginWithGoogle } from "../services/authService"
 import googleIcon from '/src/assets/icons/google-G-icon.png'
 
@@ -12,13 +12,16 @@ export default function LoginForm(){
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
 
+    const location = useLocation()
+    const from = (location.state as { from?: string } | null)?.from || "/profile"
+
     async function handleSubmit(e: FormEvent){
         e.preventDefault()
         setError(null)
 
         try {
         await signIn(email, password)
-        navigate("/profile")
+        navigate(from)
         } catch (err) {
         if (err instanceof FirebaseError && err.code === "auth/invalid-credential") {
             setError("Email o contraseña incorrectos")
