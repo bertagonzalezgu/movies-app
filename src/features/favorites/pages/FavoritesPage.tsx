@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useAuth } from "../../auth/context/useAuth"
 import { getUserFavorites, removeFavorite } from "../services/favoritesService"
-import type { FavoriteMovie } from "../../movies/types/favourites.types"
+import type { FavoriteMovie } from "../../movies/types/favorites.types"
 import { Link } from "react-router-dom"
 import placeholderPoster from '/src/assets/img/placeholder-poster-movies.png'
 
