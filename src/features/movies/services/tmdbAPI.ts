@@ -33,6 +33,15 @@ export const SORT_OPTIONS = [
   { id: "primary_release_date.desc", name: "Más recientes" },
 ];
 
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p"
+
+export type ImageSize = "w185" | "w342" | "w500" | "original"
+
+export function getImageUrl(path: string | null, size: ImageSize): string | null {
+  if (!path) return null
+  return `${IMAGE_BASE_URL}/${size}${path}`
+}
+
 export async function getPopularMovies(){
   const response = await tmdb.get('/movie/popular')
   return response.data.results

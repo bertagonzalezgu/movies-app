@@ -7,8 +7,7 @@ import heartOutlined from '/src/assets/icons/heart-outlined.svg'
 import RatingStars from "../../favorites/components/RatingStars"
 import { useMovieDetail } from "../hooks/useMovieDetail"
 import { useFavorite } from "../hooks/useFavorite"
-
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
+import { getImageUrl } from "../services/tmdbAPI"
 
 export default function MovieDetailPage(){
   const { id } = useParams()
@@ -51,9 +50,7 @@ export default function MovieDetailPage(){
 
   const director = movieCredits.crew.find((person) => person.job === "Director")
 
-  const posterUrl = movieDetails.poster_path
-    ? `${IMAGE_BASE_URL}${movieDetails.poster_path}`
-    : placeholderPoster
+  const posterUrl = getImageUrl(movieDetails.poster_path, "w500") ?? placeholderPoster
 
   return (
     <main className="min-h-screen bg-[#171B36] text-white px-4 py-8 md:py-10 md:pr-12 md:pl-32 transition-all pb-16">

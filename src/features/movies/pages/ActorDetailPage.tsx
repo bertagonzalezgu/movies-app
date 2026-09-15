@@ -1,8 +1,7 @@
 import { Link, useParams, useNavigate } from "react-router-dom"
 import placeholderPoster from '/src/assets/img/placeholder-poster-movies.png'
 import { usePersonDetail } from "../hooks/usePersonDetail"
-
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342"
+import { getImageUrl } from "../services/tmdbAPI"
 
 export default function ActorDetailPage(){
   const { id } = useParams()
@@ -41,9 +40,7 @@ export default function ActorDetailPage(){
     return null
   }
 
-  const photoUrl = person.profile_path
-    ? `${IMAGE_BASE_URL}${person.profile_path}`
-    : placeholderPoster
+  const photoUrl = getImageUrl(person.profile_path, "w342") ?? placeholderPoster
 
   return (
     <main className="min-h-screen bg-[#171B36] text-white pb-16">

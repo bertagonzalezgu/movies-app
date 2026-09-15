@@ -4,8 +4,7 @@ import { getUserFavorites, removeFavorite } from "../services/favoritesService"
 import type { FavoriteMovie } from "../../movies/types/favorites.types"
 import { Link } from "react-router-dom"
 import placeholderPoster from '/src/assets/img/placeholder-poster-movies.png'
-
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+import { getImageUrl } from "../../movies/services/tmdbAPI"
 
 export default function FavoritesPage(){
   const { user } = useAuth()
@@ -74,9 +73,7 @@ export default function FavoritesPage(){
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
           {favorites.map((fav) => {
-            const posterUrl = fav.moviePoster
-              ? `${IMAGE_BASE_URL}${fav.moviePoster}`
-              : placeholderPoster
+            const posterUrl = getImageUrl(fav.moviePoster, "w500") ?? placeholderPoster
 
             return (
               <article
