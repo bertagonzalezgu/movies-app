@@ -111,8 +111,10 @@ npm run test
 ```
 
 Includes:
-- Gherkin scenarios (search, favorites, rating) with React Testing Library.
-- Unit tests for the `tmdbAPI` and `favoritesService` services.
+- Includes:
+- Behavior-driven test scenarios (search, favorites, rating) written
+  as Given/When/Then comments within Vitest + React Testing Library
+  tests — not full Gherkin/Cucumber syntax with .feature files.
 
 ### 5. Production build
 
